@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -39,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private InputMethodManager imm;
 
     //Spinner使用
-    private Spinner spinner;
-    private int m_position = 0;
+    private Spinner spFood;
+    private int m_FoodPosition = 0;
 
     //隨機產生用
     private TextView tvRandomFood;
@@ -61,15 +59,15 @@ public class MainActivity extends AppCompatActivity {
         //edInputFood.setFilters(new InputFilter[]{new SpaceFilter()});
         db = new MyDBHelper(this);
 
-        List<String> labels = db.getAllLabels();
+        List<String> labels = db.getFoodLabels();
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, labels);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spFood.setAdapter(dataAdapter);
+        spFood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                m_position = position;
+                m_FoodPosition = position;
             }
 
             @Override
@@ -83,15 +81,15 @@ public class MainActivity extends AppCompatActivity {
     private void findViewId(){
         edInputFood = findViewById(R.id.ed_inputFood);
         btAdd = findViewById(R.id.bt_add);
-        spinner = findViewById(R.id.spinner);
+        spFood = findViewById(R.id.sp_food);
         tvRandomFood = findViewById(R.id.tv_randomFood);
         btRandomFood = findViewById(R.id.bt_randomFood);
     }
 
     private void getSQLiteData() {
-        List<String> labels = db.getAllLabels();
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, labels);
-        spinner.setAdapter(dataAdapter);
+        List<String> foodLabels = db.getFoodLabels();
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, foodLabels);
+        spFood.setAdapter(dataAdapter);
 
     }
 
@@ -99,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         String s = edInputFood.getText().toString();
         s.trim();
 
-        if (s.startsWith(" ", 0) || s.startsWith("", 0)) {
+        if (s.startsWith(" ", 0) || s.isEmpty()) {
             Toast.makeText(this, "開頭請勿空白", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -135,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        List<String> labels = db.getAllLabels();
-        String s = labels.get(m_position);
+        List<String> foodLabels = db.getFoodLabels();
+        String s = foodLabels.get(m_FoodPosition);
 
         if (db.deleteData(s) == 0) {
             Toast.makeText(this, "刪除失敗", Toast.LENGTH_SHORT).show();

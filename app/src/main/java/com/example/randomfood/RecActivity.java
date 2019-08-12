@@ -26,7 +26,7 @@ public class RecActivity extends AppCompatActivity {
         Cursor cursor = db.getReadableDatabase().query("food",null,null,
                 null,null,null,null);
 
-        recyclerView = findViewById(R.id.recycler);
+        recyclerView = findViewById(R.id.rec_food);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         RecAdapter adapter = new RecAdapter(this, cursor);

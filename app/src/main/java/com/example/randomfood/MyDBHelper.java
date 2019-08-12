@@ -42,7 +42,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<String> getAllLabels(){
+    public List<String> getFoodLabels(){
         List<String> list = new ArrayList<String>();
 
         // Select All Query

@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/sp_food"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -73,7 +73,7 @@
         android:onClick="delFood"
         android:text="del"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/sp_food" />
 
     <TextView
         android:id="@+id/textView2"
